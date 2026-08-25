@@ -1,6 +1,6 @@
 # GDPR Notice
 
-Raycast extension for Apple Mail. Select a marketing email in Mail, run **Write GDPR Notice**, and review the reply draft that opens in Mail. The draft objects under Article 21 GDPR and requests erasure under Article 17 GDPR.
+Raycast extension for Apple Mail. Select a marketing email in Mail, run **Write GDPR Notice**, and review the reply draft that opens in Mail. The draft objects under Article 21 GDPR and requests erasure under Article 17 GDPR. The command also moves the message to the Junk mailbox. Turn this off with the **Junk** preference.
 
 ## Use
 
