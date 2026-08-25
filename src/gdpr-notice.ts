@@ -3,22 +3,30 @@ import { runAppleScript } from "@raycast/utils";
 import { SUBJECT, buildBody, firstName } from "./notice";
 
 const READ_SELECTED_MESSAGE = `
-tell application "Mail"
-  set _sel to selection
-  if (count of _sel) is 0 then return "ERR::no-selection"
-  set _msg to item 1 of _sel
-  set _senderName to extract name from (sender of _msg)
-  set _senderAddress to extract address from (sender of _msg)
-  try
-    set _replyTo to reply to of _msg
-    if _replyTo is not missing value and _replyTo is not "" then set _senderAddress to extract address from _replyTo
-  end try
-  set _toAddress to ""
-  try
-    set _toAddress to address of to recipient 1 of _msg
-  end try
-  return _senderName & linefeed & _senderAddress & linefeed & _toAddress
-end tell
+on run argv
+  tell application "Mail"
+    set _sel to selection
+    if (count of _sel) is 0 then return "ERR::no-selection"
+    set _msg to item 1 of _sel
+    set _senderName to extract name from (sender of _msg)
+    set _senderAddress to extract address from (sender of _msg)
+    try
+      set _replyTo to reply to of _msg
+      if _replyTo is not missing value and _replyTo is not "" then set _senderAddress to extract address from _replyTo
+    end try
+    set _toAddress to ""
+    try
+      set _toAddress to address of to recipient 1 of _msg
+    end try
+    if item 1 of argv is "junk" then
+      set junk mail status of _msg to true
+      try
+        move _msg to junk mailbox
+      end try
+    end if
+    return _senderName & linefeed & _senderAddress & linefeed & _toAddress
+  end tell
+end run
 `;
 
 const CREATE_DRAFT = `
@@ -33,15 +41,16 @@ end run
 
 interface Preferences {
   yourName: string;
+  moveToJunk: boolean;
 }
 
 export default async function Command() {
-  const { yourName } = getPreferenceValues<Preferences>();
+  const { yourName, moveToJunk } = getPreferenceValues<Preferences>();
   await closeMainWindow();
 
   let result: string;
   try {
-    result = await runAppleScript(READ_SELECTED_MESSAGE);
+    result = await runAppleScript(READ_SELECTED_MESSAGE, [moveToJunk ? "junk" : "keep"]);
   } catch (error) {
     await showToast({
       style: Toast.Style.Failure,
@@ -69,5 +78,5 @@ export default async function Command() {
   });
 
   await runAppleScript(CREATE_DRAFT, [senderAddress, SUBJECT, body]);
-  await showHUD("GDPR notice draft opened in Mail");
+  await showHUD(moveToJunk ? "GDPR notice draft opened, message moved to Junk" : "GDPR notice draft opened in Mail");
 }

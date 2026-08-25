@@ -22,6 +22,15 @@
       "required": true,
       "title": "Your Name",
       "description": "Name used to sign the notice"
+    },
+    {
+      "name": "moveToJunk",
+      "type": "checkbox",
+      "required": false,
+      "default": true,
+      "title": "Junk",
+      "label": "Move the message to Junk",
+      "description": "Mark the message as junk and move it to the Junk mailbox after the draft opens"
     }
   ],
   "dependencies": {
