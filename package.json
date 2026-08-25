@@ -1,0 +1,42 @@
+{
+  "$schema": "https://www.raycast.com/schemas/extension.json",
+  "name": "gdpr-notice",
+  "title": "GDPR Notice",
+  "description": "Reply to the selected Apple Mail message with a GDPR objection notice",
+  "icon": "icon.png",
+  "author": "juliusbusecke",
+  "categories": ["Productivity"],
+  "license": "MIT",
+  "commands": [
+    {
+      "name": "gdpr-notice",
+      "title": "Write GDPR Notice",
+      "description": "Create a GDPR notice reply draft for the selected Mail message",
+      "mode": "no-view"
+    }
+  ],
+  "preferences": [
+    {
+      "name": "yourName",
+      "type": "textfield",
+      "required": true,
+      "title": "Your Name",
+      "description": "Name used to sign the notice"
+    }
+  ],
+  "dependencies": {
+    "@raycast/api": "^1.88.4",
+    "@raycast/utils": "^1.18.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.1",
+    "typescript": "^5.7.3",
+    "vitest": "^2.1.9"
+  },
+  "scripts": {
+    "dev": "ray develop",
+    "build": "ray build -e dist",
+    "lint": "ray lint",
+    "test": "vitest run"
+  }
+}
