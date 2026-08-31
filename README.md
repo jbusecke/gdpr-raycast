@@ -11,5 +11,6 @@ Raycast extension for Apple Mail. Select a marketing email in Mail, run **Write 
 
 ## Develop
 
+- Run `npm install` before `npm run build`. The project installs the local `ray` CLI; installing the Raycast app alone does not.
 - `npm test` — unit tests for the notice template.
 - `npm run build` — typecheck and build.
