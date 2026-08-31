@@ -9,6 +9,11 @@ Raycast extension for Apple Mail. Select a marketing email in Mail, run **Write 
 3. Set the **Your Name** preference in Raycast.
 4. Select a message in Mail and run **Write GDPR Notice**.
 
+`npm run dev` runs `ray develop`: it imports the extension into Raycast and watches
+the source for changes. The import remains after the command exits; run it again only
+after changing the extension or when it needs to be re-imported. File watching stops
+when the command exits.
+
 ## Develop
 
 - Run `npm install` before `npm run build`. The project installs the local `ray` CLI; installing the Raycast app alone does not.
